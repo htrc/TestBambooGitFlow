@@ -8,5 +8,7 @@ object Main extends App {
   println(s"Built on: $builtAtString")
 
   f1.foo
+
+  println("f2 implemented")
 }
 
