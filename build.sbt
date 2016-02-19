@@ -40,5 +40,5 @@ releaseProcess := Seq[ReleaseStep](
   // publishArtifacts,                       // : ReleaseStep, checks whether `publishTo` is properly set up
   setNextVersion,                         // : ReleaseStep
   commitNextVersion
-  //pushChanges
+  //pushChanges //no need for test
 )
