@@ -6,5 +6,9 @@ object Main extends App {
   println(s"Scala: $scalaVersion")
   println(s"SHA $gitSha on branch $gitBranch with version $gitVersion")
   println(s"Built on: $builtAtString")
+
+  f1.foo
+
+  println("f2 implemented")
 }
 
