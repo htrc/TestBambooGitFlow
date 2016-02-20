@@ -1,14 +1,24 @@
+import org.mashupbots.socko.routes._
+import org.mashupbots.socko.infrastructure.Logger
+import org.mashupbots.socko.webserver.WebServer
+import org.mashupbots.socko.webserver.WebServerConfig
+
+import akka.actor.ActorSystem
+import akka.actor.Props
+
 object Main extends App {
-  import buildinfo.BuildInfo._
+  val actorSystem = ActorSystem("HelloExampleActorSystem")
 
-  println(s"$name $version")
-  println(s"SBT : $sbtVersion")
-  println(s"Scala: $scalaVersion")
-  println(s"SHA $gitSha on branch $gitBranch with version $gitVersion")
-  println(s"Built on: $builtAtString")
+  val routes = Routes({
+    case GET(request) => {
+      actorSystem.actorOf(Props[HelloHandler]) ! request
+    }
+  })
 
-  f1.foo
+  val webServer = new WebServer(WebServerConfig(), routes, actorSystem)
+  webServer.start()
 
-  println("f2 implemented")
+  Runtime.getRuntime.addShutdownHook(new Thread {
+    override def run { webServer.stop() }
+  })
 }
-

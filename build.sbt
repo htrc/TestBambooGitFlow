@@ -10,6 +10,9 @@ lazy val testBambooGitFlow = (project in file(".")).
       "I3 Repository" at "http://nexus.htrc.illinois.edu/content/groups/public",
       Resolver.mavenLocal
     ),
+    libraryDependencies ++= Seq(
+        "org.mashupbots.socko" %% "socko-webserver" % "0.6.0"
+    ),
     buildInfoOptions ++= Seq(BuildInfoOption.BuildTime),
     buildInfoKeys ++= Seq[BuildInfoKey](
       "gitSha" -> git.gitHeadCommit.value.getOrElse("N/A"),
