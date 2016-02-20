@@ -11,7 +11,9 @@ lazy val testBambooGitFlow = (project in file(".")).
       Resolver.mavenLocal
     ),
     libraryDependencies ++= Seq(
-        "org.mashupbots.socko" %% "socko-webserver" % "0.6.0"
+        "org.mashupbots.socko" %% "socko-webserver" % "0.6.0",
+        "org.scalactic" %% "scalactic" % "2.2.6",
+        "org.scalatest" %% "scalatest" % "2.2.6" % "test"
     ),
     buildInfoOptions ++= Seq(BuildInfoOption.BuildTime),
     buildInfoKeys ++= Seq[BuildInfoKey](
