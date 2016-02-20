@@ -16,6 +16,7 @@ class HelloHandler extends Actor {
         sb.append(s"SHA $gitSha on branch $gitBranch with version $gitVersion").append("\n")
         sb.append(s"Built on: $builtAtString").append("\n")
         sb.append(s"\nA friendly message\n")
+        sb.append(s"...and another message\n")
 
         event.response.write(sb.toString)
         context.stop(self)
