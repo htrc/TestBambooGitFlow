@@ -5,9 +5,18 @@ import org.mashupbots.socko.webserver.WebServerConfig
 
 import akka.actor.ActorSystem
 import akka.actor.Props
+import akka.actor.ExtensionId
+import akka.actor.ExtensionIdProvider
+import akka.actor.ExtendedActorSystem
+
+object MyWebServerConfig extends ExtensionId[WebServerConfig] with ExtensionIdProvider {
+  override def lookup = MyWebServerConfig
+  override def createExtension(system: ExtendedActorSystem) =
+    new WebServerConfig(system.settings.config, "config")
+}
 
 object Main extends App {
-  val actorSystem = ActorSystem("HelloExampleActorSystem")
+  val actorSystem = ActorSystem("AkkaConfigActorSystem")
 
   val routes = Routes({
     case GET(request) => {
@@ -15,7 +24,8 @@ object Main extends App {
     }
   })
 
-  val webServer = new WebServer(WebServerConfig(), routes, actorSystem)
+  val myWebServerConfig = MyWebServerConfig(actorSystem)
+  val webServer = new WebServer(myWebServerConfig, routes, actorSystem)
   webServer.start()
 
   Runtime.getRuntime.addShutdownHook(new Thread {
