@@ -1,11 +1,9 @@
-import ReleaseTransformations._
-
 showCurrentGitBranch
 
 git.useGitDescribe := false
 
 lazy val testBambooGitFlow = (project in file(".")).
-  enablePlugins(GitVersioning, BuildInfoPlugin).
+  enablePlugins(GitVersioning, BuildInfoPlugin, JavaAppPackaging).
   settings(
     scalaVersion := "2.11.7",
     resolvers ++= Seq(
@@ -27,18 +25,3 @@ lazy val testBambooGitFlow = (project in file(".")).
       ("Git-Branch", git.gitCurrentBranch.value)
     )
   )
-
-releaseVersionBump := sbtrelease.Version.Bump.Minor
-
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,              // : ReleaseStep
-  inquireVersions,                        // : ReleaseStep
-  runTest,                                // : ReleaseStep
-  setReleaseVersion,                      // : ReleaseStep
-  commitReleaseVersion,                   // : ReleaseStep, performs the initial git checks
-  tagRelease,                             // : ReleaseStep
-  // publishArtifacts,                       // : ReleaseStep, checks whether `publishTo` is properly set up
-  setNextVersion,                         // : ReleaseStep
-  commitNextVersion
-  //pushChanges //no need for test
-)
