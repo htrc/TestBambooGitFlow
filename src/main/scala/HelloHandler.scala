@@ -17,7 +17,7 @@ class HelloHandler extends Actor {
         sb.append(s"Built on: $builtAtString").append("\n")
         sb.append(s"\nA friendly message\n")
         sb.append(s"...and another message\n")
-        sb.append(s"...fand a final message\n")
+        sb.append(s"...and a final message\n")
 
         event.response.write(sb.toString)
         context.stop(self)
